@@ -39,6 +39,23 @@ Eu como administrador do sistema, quero cadastrar, editar e remover veículos da
 #### US08 - Aprovação Financeira do Pedido
 Eu como um agente financeiro (banco/empresa), quero avaliar as condições financeiras do usuário, para que eu possa aprovar ou rejeitar o pedido de aluguel.
 
+## Diagrama de Caso de Uso
+
+<div>
+ <img src="docs/Diagrama de Caso de Uso.png" width="76%">
+</div>
+
+## Diagrama de Classe
+
+<div>
+ <img src="docs/Diagrama de Classe.jpg" width="76%">
+</div>
+
+## Diagrama de Pacote
+
+<div>
+ <img src="docs/Diagrama de Pacote.png" width="76%">
+</div>
 
 
 
