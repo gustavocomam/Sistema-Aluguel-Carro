@@ -28,19 +28,6 @@ public class CadastroService {
 
     @PostConstruct
     public void carregarUsuarios() {
-        File pasta = new File(System.getProperty("user.dir") + "/data");
-        if (!pasta.exists()) {
-            pasta.mkdirs(); // cria a pasta
-        }
-
-        // Criar o arquivo se não existir
-        if (!arquivo.exists()) {
-            try {
-                arquivo.createNewFile(); // cria o txt vazio
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         if (!arquivo.exists()) return;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
