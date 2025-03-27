@@ -10,7 +10,7 @@ public class AgenteController {
 
     @GetMapping
     public String mostrarAgente() {
-        return "agente";
+        return "Agente";
     }
 
 }
