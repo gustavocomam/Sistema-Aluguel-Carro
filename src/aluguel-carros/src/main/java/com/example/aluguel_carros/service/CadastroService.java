@@ -19,7 +19,7 @@ public class CadastroService {
     usuarios.add(usuario);
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))) {
-        writer.write(usuario.getNome() + ";" + usuario.getEmail() + ";" + usuario.getSenha());
+        writer.write(usuario.getNome() + ";" + usuario.getEmail() + ";" + usuario.getSenha() + ";" + usuario.getTipo().name());
         writer.newLine();
     } catch (IOException e) {
         e.printStackTrace();
@@ -34,8 +34,8 @@ public class CadastroService {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(";");
-                if (partes.length == 3) {
-                    Usuario usuario = new Usuario(partes[0], partes[1], partes[2]);
+                if (partes.length == 4) {
+                    Usuario usuario = new Usuario(partes[0], partes[1], partes[2], Usuario.TipoUsuario.valueOf(partes[3]));
                     usuarios.add(usuario);
                 }
             }
