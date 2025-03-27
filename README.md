@@ -57,6 +57,11 @@ Eu como um agente financeiro (banco/empresa), quero avaliar as condições finan
  <img src="docs/Diagrama de Pacote.png" width="76%">
 </div>
 
+## Diagrama de Componente
+
+<div>
+ <img src="docs/Diagrama De Componente.png" width="76%">
+</div>
 
 
 
