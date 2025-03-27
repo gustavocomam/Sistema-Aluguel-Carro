@@ -11,12 +11,18 @@ public class LoginService {
         this.cadastroService = cadastroService;
     }
 
-    public void Login(Usuario usuario) {
-        for(int i = 0; i< cadastroService.getUsuarios().size(); i++){
-            if(usuario.getEmail().equals(cadastroService.getUsuarios().get(i).getEmail()) && usuario.getSenha().equals(cadastroService.getUsuarios().get(i).getSenha())){
-                System.out.println("Login com sucesso");
+    public String Login(Usuario usuario) {
+        for (int i = 0; i < cadastroService.getUsuarios().size(); i++) {
+            Usuario u = cadastroService.getUsuarios().get(i);
+            if (usuario.getEmail().equals(u.getEmail()) && usuario.getSenha().equals(u.getSenha())) {
+                if (u.getTipo().equals(Usuario.TipoUsuario.AGENTE)) {
+                    return "redirect:/agente";
+                } else if (u.getTipo().equals(Usuario.TipoUsuario.CLIENTE)) {
+                    System.out.println("Usuario logado com sucesso");
+                }
             }
         }
 
+        return "Caindo no ultimo return";
     }
 }
