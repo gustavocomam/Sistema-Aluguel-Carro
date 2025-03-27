@@ -24,10 +24,10 @@ public class LoginController {
     }
 
 @PostMapping
-  public void Login(@ModelAttribute Usuario usuario) {
+  public String Login(@ModelAttribute Usuario usuario) {
       System.out.println(usuario.getEmail());
       System.out.println(usuario.getSenha());
-      loginService.Login(usuario);
+     return loginService.Login(usuario);
   }
 
 }
