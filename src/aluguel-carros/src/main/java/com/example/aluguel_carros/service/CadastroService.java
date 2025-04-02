@@ -1,8 +1,11 @@
 package com.example.aluguel_carros.service;
 
 import com.example.aluguel_carros.DTO.Usuario;
+import com.example.aluguel_carros.repository.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -11,37 +14,12 @@ import java.util.List;
 
 @Service
 public class CadastroService {
-    @Getter
-    private final List<Usuario> usuarios = new ArrayList<>();
-    private final File arquivo = new File(System.getProperty("user.dir") + "/data/usuarios.txt");
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-    public void cadastrarUsuario(Usuario usuario) {
-    usuarios.add(usuario);
-
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))) {
-        writer.write(usuario.getNome() + ";" + usuario.getEmail() + ";" + usuario.getSenha() + ";" + usuario.getTipo().name());
-        writer.newLine();
-    } catch (IOException e) {
-        e.printStackTrace();
+    public Usuario cadastrarUsuario(Usuario usuario) {
+     return  usuarioRepository.save(usuario);
     }
-}
 
-    @PostConstruct
-    public void carregarUsuarios() {
-        if (!arquivo.exists()) return;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                String[] partes = linha.split(";");
-                if (partes.length == 4) {
-                    Usuario usuario = new Usuario(partes[0], partes[1], partes[2], Usuario.TipoUsuario.valueOf(partes[3]));
-                    usuarios.add(usuario);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
