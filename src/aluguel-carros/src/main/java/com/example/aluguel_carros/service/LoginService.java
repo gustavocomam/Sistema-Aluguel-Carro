@@ -1,6 +1,8 @@
 package com.example.aluguel_carros.service;
 
-import com.example.aluguel_carros.DTO.Usuario;
+import com.example.aluguel_carros.model.UsuarioModel;
+import com.example.aluguel_carros.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,18 +13,25 @@ public class LoginService {
         this.cadastroService = cadastroService;
     }
 
-    public String Login(Usuario usuario) {
-        for (int i = 0; i < cadastroService.getUsuarios().size(); i++) {
-            Usuario u = cadastroService.getUsuarios().get(i);
-            if (usuario.getEmail().equals(u.getEmail()) && usuario.getSenha().equals(u.getSenha())) {
-                if (u.getTipo().equals(Usuario.TipoUsuario.AGENTE)) {
-                    return "redirect:/agente";
-                } else if (u.getTipo().equals(Usuario.TipoUsuario.CLIENTE)) {
-                    System.out.println("Usuario logado com sucesso");
-                }
-            }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
+
+    public String Login(UsuarioModel usuarioModelParametrer) {
+    UsuarioModel usuarioModelFind = usuarioRepository.findByEmail(usuarioModelParametrer.getEmail());
+     if(usuarioModelFind.getTipo().equals(UsuarioModel.TipoUsuario.AGENTE)) {
+         if (usuarioModelParametrer.getSenha().equals(usuarioModelFind.getSenha())) {
+                 return "redirect:/agente";
+         }
+
+     } else if(usuarioModelFind.getTipo().equals(UsuarioModel.TipoUsuario.CLIENTE)){
+         if (usuarioModelParametrer.getSenha().equals(usuarioModelFind.getSenha())) {
+             return "redirect:/cliente";
+         }
         }
 
-        return "Caindo no ultimo return";
+       return "usuario nao encontrado";
     }
+
 }

@@ -1,6 +1,6 @@
 package com.example.aluguel_carros.controller;
 
-import com.example.aluguel_carros.DTO.Usuario;
+import com.example.aluguel_carros.model.UsuarioModel;
 import com.example.aluguel_carros.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +24,7 @@ public class LoginController {
     }
 
 @PostMapping
-  public String Login(@ModelAttribute Usuario usuario) {
-      System.out.println(usuario.getEmail());
-      System.out.println(usuario.getSenha());
+  public String Login(@ModelAttribute UsuarioModel usuario) {
      return loginService.Login(usuario);
   }
 

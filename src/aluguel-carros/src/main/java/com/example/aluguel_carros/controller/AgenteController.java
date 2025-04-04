@@ -1,6 +1,5 @@
 package com.example.aluguel_carros.controller;
-
-import com.example.aluguel_carros.DTO.Car;
+import com.example.aluguel_carros.model.CarModel;
 import com.example.aluguel_carros.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class AgenteController {
         return "Agente";
     }
     @PostMapping("/cadastrar-carro")
-    public String addCarro(@ModelAttribute Car car) {
+    public String addCarro(@ModelAttribute CarModel car) {
         carService.cadastrarCarro(car);
         System.out.println(car);
         return "redirect:/agente";

@@ -7,7 +7,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Usuario {
+@Table(name = "usuarios")
+public class UsuarioModel {
 
     // Getters e Setters = lombok
     @Id
