@@ -1,49 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Painel do Agente</title>
+    <title>Painel do Administrador</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body {
             font-family: 'Poppins', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
         }
 
-        body {
-            height: 100vh;
-            background: linear-gradient(135deg, #2e2e2e, #b0b0b0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        h2 {
+            color: #8E2DE2;
         }
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 20px;
-            width: 90%;
-            height: 90vh;
-            padding: 20px;
+            grid-template-columns: 1fr;
+            gap: 30px;
         }
 
         .box {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            padding: 20px;
-            overflow: auto;
-            animation: slideUp 0.6s ease-out;
-        }
-
-        .form-carro h2 {
-            font-weight: 600;
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: #333;
+            background-color: #9a9696;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(142, 45, 226, 0.2);
         }
 
         .input-group {
@@ -52,99 +36,149 @@
 
         .input-group label {
             display: block;
-            font-size: 14px;
-            color: #666;
             margin-bottom: 5px;
+            font-size: 14px;
         }
 
         .input-group input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: #555;
-            outline: none;
-            box-shadow: 0 0 5px rgba(50, 50, 50, 0.3);
-        }
-
-        .cadastro-btn {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(to right, #8E2DE2, #4A00E0);
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
+            border-radius: 8px;
             border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
         }
 
-        .cadastro-btn:hover {
+        .cadastro-btn, .aprovar-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
             background: linear-gradient(to right, #8E2DE2, #4A00E0);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            background-color: #9a9696;
+        }
+
+        th {
+            background-color: #9a9696;
+            color: #8E2DE2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1c1c1c;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
 <body>
+
+<h1 style="color: #8E2DE2; text-align: center; margin-bottom: 30px;">
+    Área Administrativa - Bem-vindo, Administrador!
+</h1>
+
 <div class="dashboard-grid">
 
-    <!-- Quadrado superior esquerdo -->
-    <div class="box form-carro">
+    <!-- Cadastro de Carro -->
+    <div class="box">
         <h2>Cadastro de Carro</h2>
-        <form method="post" th:action="@{/agente/cadastrar-carro}">
+        <form method="post" th:action="@{/adm/cadastrar-carro}">
             <div class="input-group">
-                <label for="ano">Ano</label>
-                <input type="number" id="ano" name="ano" placeholder="Ano" required>
+                <label>Modelo</label>
+                <input type="text" name="modelo" required>
             </div>
             <div class="input-group">
-                <label for="marca">Marca</label>
-                <input type="text" id="marca" name="marca" placeholder="Marca" required>
+                <label>Marca</label>
+                <input type="text" name="marca" required>
             </div>
             <div class="input-group">
-                <label for="modelo">Ano</label>
-                <input type="text" id="modelo" name="modelo" placeholder="Modelo" required>
+                <label>Ano</label>
+                <input type="number" name="ano" required>
             </div>
             <div class="input-group">
-                <label for="placa">Placa</label>
-                <input type="text" id="placa" name="placa" placeholder="Placa" required>
+                <label>Placa</label>
+                <input type="text" name="placa" required>
             </div>
-            <button type="submit" class="cadastro-btn">Cadastrar Carro</button>
+            <button type="submit" class="cadastro-btn">Cadastrar</button>
         </form>
     </div>
 
-
+    <!-- Aprovação de Pedidos -->
     <div class="box">
-        <h2>Área futura 1</h2>
-
+        <h2>Pedidos Pendentes</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Carro</th>
+                <th>Data Retirada</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pedido : ${pedidosPendentes}">
+                <td th:text="${pedido.id}"></td>
+                <td th:text="${pedido.nomeCliente}"></td>
+                <td th:text="${pedido.modeloVeiculo}"></td>
+                <td th:text="${pedido.dataRetirada}"></td>
+                <td>
+                    <div class="btn-group">
+                        <form th:action="@{/adm/aprovar/{id}(id=${pedido.id})}" method="post">
+                            <button type="submit" class="aprovar-btn">Aprovar</button>
+                        </form>
+                        <form th:action="@{/adm/recusar/{id}(id=${pedido.id})}" method="post">
+                            <button type="submit" class="aprovar-btn" style="background-color: #ff4d4d;">Recusar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
-
+    <!-- Histórico de Pedidos -->
     <div class="box">
-        <h2>Área futura 2</h2>
-
+        <h2>Histórico de Pedidos</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Carro</th>
+                <th>Retirada</th>
+                <th>Devolução</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pedido : ${pedidosFinalizados}">
+                <td th:text="${pedido.id}"></td>
+                <td th:text="${pedido.nomeCliente}"></td>
+                <td th:text="${pedido.modeloVeiculo}"></td>
+                <td th:text="${pedido.dataRetirada}"></td>
+                <td th:text="${pedido.dataDevolucao}"></td>
+                <td th:text="${pedido.status}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
-
-    <div class="box">
-        <h2>Área futura 3</h2>
-
-    </div>
 </div>
+
 </body>
 </html>

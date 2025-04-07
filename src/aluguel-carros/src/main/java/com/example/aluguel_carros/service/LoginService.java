@@ -2,36 +2,26 @@ package com.example.aluguel_carros.service;
 
 import com.example.aluguel_carros.model.UsuarioModel;
 import com.example.aluguel_carros.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class LoginService {
-    private final CadastroService cadastroService;
 
-    public LoginService(CadastroService cadastroService) {
-        this.cadastroService = cadastroService;
+    private final UsuarioRepository usuarioRepository;
+
+    public LoginService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    public UsuarioModel autenticar(String email, String senha) {
+        Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(email);
 
-
-
-    public String Login(UsuarioModel usuarioModelParametrer) {
-    UsuarioModel usuarioModelFind = usuarioRepository.findByEmail(usuarioModelParametrer.getEmail());
-     if(usuarioModelFind.getTipo().equals(UsuarioModel.TipoUsuario.AGENTE)) {
-         if (usuarioModelParametrer.getSenha().equals(usuarioModelFind.getSenha())) {
-                 return "redirect:/agente";
-         }
-
-     } else if(usuarioModelFind.getTipo().equals(UsuarioModel.TipoUsuario.CLIENTE)){
-         if (usuarioModelParametrer.getSenha().equals(usuarioModelFind.getSenha())) {
-             return "redirect:/cliente";
-         }
+        if (usuario.isPresent() && usuario.get().getSenha().equals(senha)) {
+            return usuario.get();
         }
 
-       return "usuario nao encontrado";
+        return null;
     }
-
 }

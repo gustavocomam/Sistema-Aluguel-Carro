@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
@@ -58,7 +58,7 @@
             margin-bottom: 5px;
         }
 
-        .input-group input {
+        .input-group input, .input-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -67,7 +67,7 @@
             transition: 0.3s;
         }
 
-        .input-group input:focus {
+        .input-group input:focus, .input-group select:focus {
             border-color: #555;
             outline: none;
             box-shadow: 0 0 5px rgba(50, 50, 50, 0.3);
@@ -109,21 +109,22 @@
 <body>
 <div class="cadastro-container">
     <h2>Crie sua conta</h2>
-    <form method="post" th:action="@{/cadastro}">
+    <form method="post" th:action="@{/usuario/cadastro}" th:object="${usuario}">
         <div class="input-group">
-            <label for="email">Nome</label>
-            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" th:field="*{nome}" placeholder="Seu nome" required>
         </div>
         <div class="input-group">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            <input type="email" id="email" th:field="*{email}" placeholder="seu@email.com" required>
         </div>
         <div class="input-group">
             <label for="senha">Senha</label>
-            <input type="password" name="senha" id="senha" placeholder="Crie uma senha" required>
+            <input type="password" id="senha" th:field="*{senha}" placeholder="Crie uma senha" required>
         </div>
         <div class="input-group">
-            <select name="tipo">
+            <label for="tipo">Tipo</label>
+            <select id="tipo" th:field="*{tipo}" required>
                 <option value="CLIENTE">Cliente</option>
                 <option value="AGENTE">Agente</option>
             </select>
@@ -131,7 +132,7 @@
         <button type="submit" class="cadastro-btn">Cadastrar</button>
     </form>
     <div class="extra-links">
-        <a href="#">Já tem uma conta? Entrar</a>
+        <a th:href="@{/usuario/login}">Já tem uma conta? Entrar</a>
     </div>
 </div>
 </body>

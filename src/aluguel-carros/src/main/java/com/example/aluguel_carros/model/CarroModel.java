@@ -1,7 +1,6 @@
 package com.example.aluguel_carros.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "carros")
-public class CarModel {
+public class CarroModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long matricula;
@@ -21,6 +20,5 @@ public class CarModel {
     private String placa;
     @Column(nullable = false)
     private boolean disponivel = true;
-
 
 }
