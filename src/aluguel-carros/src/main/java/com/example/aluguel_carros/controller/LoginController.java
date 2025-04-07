@@ -6,6 +6,7 @@ import com.example.aluguel_carros.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -31,19 +32,23 @@ public class LoginController {
 
     // Processar login
     @PostMapping("/login")
-    public String login(@ModelAttribute UsuarioModel usuarioForm) {
+    public String login(@ModelAttribute UsuarioModel usuarioForm, HttpSession session) {
         UsuarioModel usuario = loginService.autenticar(usuarioForm.getEmail(), usuarioForm.getSenha());
 
         if (usuario == null) {
             return "redirect:/usuario/login?erro=true";
         }
 
+        session.setAttribute("usuario", usuario);
+        session.setAttribute("clienteId", usuario.getId()); // Salvando ID na sessão
+
         if (usuario.getTipo() == UsuarioModel.TipoUsuario.AGENTE) {
-            return "redirect:/adm"; // ADM
+            return "redirect:/adm";
         } else {
-            return "redirect:/cliente"; // Cliente
+            return "redirect:/cliente";
         }
     }
+
     // Página de cadastro
     @GetMapping("/cadastro")
     public String mostrarCadastro(Model model) {
