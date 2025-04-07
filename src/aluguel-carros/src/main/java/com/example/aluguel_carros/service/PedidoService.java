@@ -50,4 +50,8 @@ public class PedidoService {
             pedidoRepository.save(p);
         });
     }
+
+    public List<PedidoModel> buscarPedidosPorClienteId(Long clienteId) {
+        return pedidoRepository.findByClienteId(clienteId);
+    }
 }
