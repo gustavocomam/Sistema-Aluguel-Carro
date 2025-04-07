@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RentCAR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #0f0f0f;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: absolute;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 22px;
+            color: #8E2DE2;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #8E2DE2;
+        }
+
+        .hero {
+            height: 70vh;
+            background-image: url("/images/carro.jpg");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+        }
+
+        .section-buttons {
+            height: 35vh;
+            background-color: #181818;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 10px 20px;
+            flex-wrap: wrap;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 10px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(71, 58, 255, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(114, 58, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .card h3 {
+            color: #8E2DE2;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                height: 55vh;
+            }
+
+            .section-buttons {
+                height: 45vh;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">RentCAR</div>
+    <nav>
+        <a href="index.html">Início</a>
+        <a th:href="@{/usuario/login}">Login</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>RentCAR</h1>
+        <p>Alugue o carro ideal com praticidade e confiança.</p>
+    </div>
+</section>
+
+<section class="section-buttons">
+    <a th:href="@{/usuario/reserva}" class="card-link">
+    <div class="card">
+            <h3>Reserva</h3>
+            <p>Escolha o carro perfeito e garanta sua reserva com poucos cliques.</p>
+        </div>
+    </a>
+
+    <a th:href="@{/Suporte}" class="card-link">
+        <div class="card">
+            <h3>Suporte</h3>
+            <p>Precisa de ajuda? Nosso suporte está disponível 24h para você.</p>
+        </div>
+    </a>
+</section>
+</body>
+</html>
