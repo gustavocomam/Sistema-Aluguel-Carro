@@ -1,159 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Área do Cliente - RentCAR</title>
     <style>
-        body {
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        nav {
-            background-color: #4B0082;
-            padding: 15px 30px;
-            color: white;
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #0f0f0f;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        nav .logo {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav ul li {
-            display: inline;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .container {
-            padding: 40px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .car-card {
-            width: 320px;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .car-card img {
+            padding: 15px 40px;
+            position: absolute;
             width: 100%;
-            height: 180px;
-            object-fit: cover;
+            z-index: 2;
         }
 
-        .car-card .content {
-            padding: 16px;
+        .logo {
+            font-weight: bold;
+            font-size: 22px;
+            color: #8E2DE2;
         }
 
-        .car-card h3 {
-            margin: 0;
-            font-size: 1.1rem;
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            transition: color 0.2s;
         }
 
-        .car-card .features {
+        nav a:hover {
+            color: #8E2DE2;
+        }
+
+        .hero {
+            height: 70vh;
+            background-image: url("/images/carro.jpg");
+            background-size: cover;
+            background-position: center;
+            position: relative;
             display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 8px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
-        .car-card .footer {
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+        }
+
+        .section-buttons {
+            height: 35vh;
+            background-color: #181818;
             display: flex;
             justify-content: center;
-            padding: 16px;
-
-        }
-
-        .car-card .price {
-            background: #6b46c1;
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-weight: bold;
-        }
-
-        .rent-button {
-            background: #6b46c1;
-            color: #fff;
+            align-items: center;
+            gap: 40px;
             padding: 10px 20px;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
+            flex-wrap: wrap;
         }
 
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 10px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(71, 58, 255, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(114, 58, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .card h3 {
+            color: #8E2DE2;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                height: 55vh;
+            }
+
+            .section-buttons {
+                height: 45vh;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
-<nav>
-    <div class="logo">Aluguel de Carros</div>
-    <ul>
-        <li><a href="#" style="text-decoration: underline;">Solicitar Aluguel</a></li>
-        <li><a href="/consultar-pedidos">Consultar Pedidos</a></li>
-    </ul>
-</nav>
+<header>
+    <div class="logo">RentCAR</div>
+    <nav>
+        <a th:href="@{/cliente}">Início</a>
+        <a th:href="@{/}">Sair</a>
+    </nav>
+</header>
 
-<div class="container" id="carros-container">
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>RentCAR</h1>
+        <p>Bem-vindo à sua área de cliente.</p>
+    </div>
+</section>
 
-</div>
+<section class="section-buttons">
+    <a th:href="@{/cliente/realizar-pedido}" class="card-link">
+        <div class="card">
+            <h3>Criar Pedido</h3>
+            <p>Escolha o carro ideal e faça uma nova reserva agora mesmo.</p>
+        </div>
+    </a>
 
+    <a th:href="@{/cliente/minhas-reservas}" class="card-link">
+        <div class="card">
+            <h3>Histórico de Pedidos</h3>
+            <p>Consulte suas reservas anteriores e acompanhe os pedidos ativos.</p>
+        </div>
+    </a>
+</section>
 </body>
-<script>
-        document.addEventListener("DOMContentLoaded", function () {
-        fetch("http://localhost:8080/api/carros")
-            .then(response => response.json())
-            .then(carros => {
-                const container = document.getElementById("carros-container");
-
-                carros.forEach(carro => {
-
-                    const card = document.createElement("div");
-                    card.className = "car-card";
-
-
-                    card.innerHTML = `
-        <div class="content">
-          <h3>${carro.modelo} - ${carro.ano}</h3>
-          <div class="features">
-            <div>${carro.ano}</div>
-            <div>${carro.marca}</div>
-          </div>
-        </div>
-        <div class="footer">
-          <div class="price">Alugar</div>
-        </div>
-      `;
-
-
-                    container.appendChild(card);
-                });
-            })
-
-            .catch(error => console.error("Erro ao carregar os carros:", error));
-    });
-</script>
 </html>
